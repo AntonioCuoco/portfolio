@@ -1,0 +1,18 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Glacial Indifference', sans-serif;
+}
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  src: url('./glacial-indifference-font/GlacialIndifference-Regular.otf') format('truetype');
+  /* Aggiungi altre varianti del font (bold, italic, etc.) se necessario */
+}
+
+@font-face {
+  font-family: 'Brittany';
+  src: url('./brittany-font/BrittanySignature.ttf') format('woff2'), /* per i browser moderni */
+       url('./brittany-font/BrittanySignature.ttf') format('woff'); /* fallback per i browser più vecchi */
+  /* Aggiungi altri formati se necessario (ad esempio, .ttf) */
+}

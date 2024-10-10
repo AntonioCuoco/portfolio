@@ -1,0 +1,228 @@
+.wrapper-page-about {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+}
+
+.wrapper-body1-about {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50vw;
+    height: 100vh;
+    background-color: #020202;
+}
+
+.logo-img-about {
+    font-family: 'Glacial Indifference', sans-serif;
+    color: white;
+    padding: 0px 16px;
+}
+
+.logo-img-about a {
+    text-decoration: none;
+    color: white;
+}
+
+.paragraph-location-about {
+    transform: rotate(90deg);
+    color: white;
+}
+
+.wrapper-getInTouch-about {
+    padding: 16px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.wrapper-img-circle-about {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    height: fit-content;
+}
+
+.wrapper-about-paragraph {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.title-experience-about {
+    color: white;
+    font-family: 'Glacial Indifference', sans-serif;
+    font-size: 40px;
+    line-height: 42px;
+    font-weight: 900;
+}
+
+.subtitle-experience-about {
+    color: white;
+    font-family: 'Glacial Indifference', sans-serif;
+    font-size: 40px;
+    line-height: 42px;
+    font-weight: 900;
+}
+
+.about-paragraph {
+    color: white;
+    font-family: 'Glacial Indifference', sans-serif;
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 900;
+}
+
+.about-paragraph2 {
+    color: white;
+    font-family: 'Glacial Indifference', sans-serif;
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 900;
+    margin-top: 16px;
+}
+
+.wrapper-body2-about {
+    display: flex;
+    overflow-y: auto;
+    max-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 50vw;
+    height: 100vh;
+    background-color: #8b2635;
+}
+
+.wrapper-menù-about {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    list-style: none;
+}
+
+.wrapper-voice-menù-about {
+    color: white;
+    font-family: 'Glacial Indifference', sans-serif;
+    padding: 8px;
+    font-size: 18px;
+    transform: rotate(90deg);
+}
+
+.paragraph-developer-about {
+    color: white;
+}
+
+.img-personaggio3d-about {
+    position: absolute;
+    height: 70%;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.img-about-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wrapper-form-about {
+    width: 100%;
+    background-color: #fff;
+}
+
+.form-about {
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input1-form-about {
+    width: 20vw;
+    border: 1px solid grey;
+}
+
+.input2-form-about {
+    width: 20vw;
+    border: 1px solid grey;
+}
+
+@media screen and (max-width: 767px) {
+    .wrapper-body1-about {
+        display: none;
+    }
+
+    .wrapper-body2-about {
+        display: flex;
+        overflow-y: auto;
+        max-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100vw;
+        height: fit-content;
+        background-color: #8b2635;
+    }
+
+    .logo-img-about {
+        position: absolute;
+        top: 11px;
+        left: 0;
+    }
+
+    .logo-img-about a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .input1-form-about {
+        width: 80vw;
+        border: 1px solid grey;
+    }
+
+    .input2-form-about {
+        width: 80vw;
+        border: 1px solid grey;
+    }
+
+    .wrapper-menù-about2 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .wrapper-about-paragraph {
+        padding: 0;
+        padding-left: 12px;
+    }
+
+    .title-experience-about,
+    .subtitle-experience-about {
+        font-size: 32px;
+        color: white;
+        font-family: 'Glacial Indifference', sans-serif;
+        font-size: 32px;
+        line-height: 42px;
+        font-weight: 900;
+    }
+
+    .about-paragraph,
+    .about-paragraph2 {
+        font-size: 28px;
+    }
+
+    .wrapper-form-about {
+        width: 95%;
+    }
+}

@@ -1,0 +1,272 @@
+.wrapper-page-project2 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+}
+
+.wrapper-body1-project2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: baseline;
+    width: 100%;
+    height: 100vh;
+    background-color: #020202;
+    /* gap: 80px; */
+}
+
+.logo-img2 {
+    font-family: 'Glacial Indifference', sans-serif;
+    color: white;
+    padding: 0px 16px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
+
+.logo-img2 a {
+    text-decoration: none;
+    color: white;
+}
+
+.wrapper-first-element-project {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.wrapper-second-element-project {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.first-element-project2 {
+    width: fit-content;
+    height: fit-content;
+}
+
+.third-element-project2 {
+    width: fit-content;
+    height: fit-content;
+}
+
+.wrapper-img-blog {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wrapper-img-tenzien {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wrapper-img-cms {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.img-blog {
+    width: 400px;
+    border: 1px solid white;
+}
+
+.img-cms {
+    width: 400px;
+    border: 1px solid white;
+}
+
+.github-wrapper1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+}
+
+.github-wrapper2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+}
+
+.github-wrapper3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 25%;
+    margin-right: 5%;
+    gap: 12px;
+}
+
+.subwrapper-github-cms {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.img-tenzien {
+    width: 400px;
+    border: 1px solid white;
+}
+
+.wrapper-body2-project2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+    height: 100vh;
+    background-color: #5D737E;
+}
+
+.wrapper-first-project2 {}
+
+.second-element-project2 {
+    width: fit-content;
+    height: fit-content;
+    margin-top: 25%;
+}
+
+.link-project2 {
+    color: white;
+}
+
+.link-project2:active {
+    color: white;
+}
+
+.text-white {
+    color: white;
+}
+
+.wrapper-third-element-project {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .img-title-project {
+        width: 90vw;
+        height: fit-content;
+    }
+
+    .first-element-project2 {
+        display: none;
+    }
+
+    .third-element-project2 {
+        display: none;
+    }
+
+    .wrapper-body2-project2 {
+        display: none;
+    }
+
+    .text-cms {
+        color: white;
+    }
+
+    .img-blog {
+        width: 80%;
+        border: 1px solid white;
+    }
+
+    .img-cms {
+        width: 80%;
+        border: 1px solid white;
+        position: unset;
+    }
+
+    .img-tenzien {
+        width: 80%;
+        border: 1px solid white;
+    }
+
+    .wrapper-page-project2 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .logo-img2 {
+        font-family: 'Glacial Indifference', sans-serif;
+        color: white;
+        padding: 0px 16px;
+        position: relative;
+    }
+
+    .logo-img2 a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .wrapper-first-element-project {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .wrapper-mobile-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .text-white {
+        color: white;
+    }
+
+    .wrapper-second-element-project {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .github-wrapper1 {
+        
+    }
+
+    .github-wrapper2 {
+
+    }
+
+    .github-wrapper3-mobile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .wrapper-body1-project2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: baseline;
+        width: 100%;
+        height: fit-content;
+        background-color: #020202;
+        /* gap: 80px; */
+    }
+
+    .wrapper-third-element-project {
+        display: block;
+        padding: 12px;
+    }
+
+    .wrapper-third-element-project, .wrapper-img-blog, .wrapper-img-tenzien {
+        padding: 12px;
+    }
+}

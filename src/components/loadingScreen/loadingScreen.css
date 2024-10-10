@@ -1,0 +1,44 @@
+.wrapper-page-loading {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.logo-img {
+    font-family: 'Glacial Indifference', sans-serif;
+    color: white;
+    padding: 0px 16px;
+}
+
+.wrapper-getInTouch {
+    padding: 16px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.wrapper-body1-loading {
+    width: 50%;
+    height: 100%;
+    background-color: #020202;
+}
+
+.wrapper-body2-loading {
+    width: 50%;
+    height: 100%;
+    background-color: #390099;
+}
+
+.wrapper-logo-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo-loading {
+    
+}

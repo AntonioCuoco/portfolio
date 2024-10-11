@@ -68,6 +68,8 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    margin-top: 25%;
+    padding-right: 16px;
 }
 
 .img-blog {
@@ -101,7 +103,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 25%;
+    /* margin-top: 25%; */
     margin-right: 5%;
     gap: 12px;
 }
@@ -114,8 +116,8 @@
     gap: 10px;
 }
 
-.img-tenzien {
-    width: 400px;
+.img-pokemonHome {
+    width: 280px;
     border: 1px solid white;
 }
 
@@ -134,7 +136,7 @@
 .second-element-project2 {
     width: fit-content;
     height: fit-content;
-    margin-top: 25%;
+    /* margin-top: 25%; */
 }
 
 .link-project2 {

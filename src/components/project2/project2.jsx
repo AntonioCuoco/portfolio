@@ -7,8 +7,9 @@ import text01 from '../../assets/01.png'
 import text02 from '../../assets/02.png'
 import text03 from '../../assets/03.png'
 import img99dev from '../../assets/99dev-img.png';
-import screenPokemonHome from '../../assets/screenPokemonHome.png'
+import portfolioScreen from '../../assets/portfolioScreen.png'
 import cms99dev from '../../assets/cms99dev.png'
+import artifonia from '../../assets/artifoniaScreen.jpg'
 import { useForm } from 'antd/es/form/Form';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -84,20 +85,21 @@ function Project2() {
                 </div>
 
                 <div className='wrapper-third-element-project'>
-                    <motion.img src={cms99dev} className='img-cms' />
+                    <motion.img src={artifonia} className='img-artifonia' />
                     <div className='github-wrapper3-mobile'>
-                        <h2 className='text-white'>cms 99dev blog</h2>
-                        <a href="https://github.com/AntonioCuoco/cms99dev" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
+                        <h2 className='text-white'>artifonia react native</h2>
+                        <a href="https://github.com/AntonioCuoco/artifonia" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
                     </div>
                 </div>
 
                 <div className='wrapper-second-element-project'>
                     <motion.img src={text03} className='third-element-project2' />
-                    <div className='wrapper-img-tenzien'>
-                        <motion.img src={screenPokemonHome} className='img-pokemonHome' />
+                    <div className='wrapper-img-portfolio'>
+                        <motion.img src={portfolioScreen} className='img-portfolio' />
                         <div className='github-wrapper2'>
-                            <motion.h2 className='text-white'>img pokemon home screen</motion.h2>
-                            <a href="https://github.com/AntonioCuoco/pokemonHome" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
+                            <motion.h2 className='text-white'>img portfolio screen</motion.h2>
+                            <a href="https://github.com/AntonioCuoco/portfolio" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
+                            <a href="https://antoniocuoco.it" className='link-project2'><FontAwesomeIcon icon={faGlobe} /></a>
                         </div>
                     </div>
                 </div>
@@ -106,13 +108,13 @@ function Project2() {
                 className='wrapper-body2-project2'
             >
                 <Menù />
-                <div className='wrapper-img-cms'>
+                <div className='wrapper-img-artifonia'>
                     <motion.img src={text02} className='second-element-project2' />
                     <div className='github-wrapper3'>
-                        <motion.img src={cms99dev} className='img-cms' />
-                        <div className='subwrapper-github-cms'>
-                            <motion.h2 className='text-white'>img portfolio cms</motion.h2>
-                            <a href="https://github.com/AntonioCuoco/cms99dev" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
+                        <motion.img src={artifonia} className='img-artifonia' />
+                        <div className='subwrapper-github-artifonia'>
+                            <motion.h2 className='text-white'>artifonia react native</motion.h2>
+                            <a href="https://github.com/AntonioCuoco/artifonia" className='link-project2'><FontAwesomeIcon icon={faGithub} /></a>
                         </div>
                     </div>
                 </div>

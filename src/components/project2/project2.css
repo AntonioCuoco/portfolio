@@ -58,27 +58,29 @@
     gap: 10px;
 }
 
-.wrapper-img-tenzien {
+.wrapper-img-portfolio {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.wrapper-img-cms {
+.wrapper-img-artifonia {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    margin-top: 25%;
+    margin-top: 25dvh;
     padding-right: 16px;
 }
 
 .img-blog {
-    width: 400px;
+    /* width: 400px; */
+    width: 55%;
     border: 1px solid white;
 }
 
-.img-cms {
-    width: 400px;
+.img-artifonia {
+    width: 250px;
+    height: 350px;
     border: 1px solid white;
 }
 
@@ -108,7 +110,7 @@
     gap: 12px;
 }
 
-.subwrapper-github-cms {
+.subwrapper-github-artifonia {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -116,8 +118,8 @@
     gap: 10px;
 }
 
-.img-pokemonHome {
-    width: 280px;
+.img-portfolio {
+    width: 55%;
     border: 1px solid white;
 }
 
@@ -182,13 +184,13 @@
         border: 1px solid white;
     }
 
-    .img-cms {
+    .img-artifonia {
         width: 80%;
         border: 1px solid white;
         position: unset;
     }
 
-    .img-tenzien {
+    .img-portfolio {
         width: 80%;
         border: 1px solid white;
     }
@@ -234,6 +236,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding: 12px;
     }
 
     .github-wrapper1 {

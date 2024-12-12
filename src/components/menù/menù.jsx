@@ -25,8 +25,12 @@ function Menù() { // per la pagina di about, fare un quiz interattivo in cui fa
                     <li className='open-menù-voice' onClick={() => navigate('/home')}>Home</li>
                     <li className='open-menù-voice' onClick={() => navigate('/project')}>Projects</li>
                     <li className='open-menù-voice' onClick={() => navigate('/about')}>About</li>
-                    {openMenù && <GetInTouch /> }
-                    <p className="siteByMobile" style={{ color: 'white',padding: 8 }}>Antonio Cuoco @ 2024</p>
+                    {openMenù && <GetInTouch />}
+                    <p className="siteByMobile" style={{ color: 'white', padding: 8 }}>Antonio Cuoco @ 2024</p>
+                    <div className='wrapper-policy'>
+                        <a href="https://www.iubenda.com/privacy-policy/2400137" className="privacy-policy">Privacy Policy</a>
+                        <a href="https://www.iubenda.com/privacy-policy/46134369/cookie-policy" className="cookie-policy">Cookie Policy</a>
+                    </div>
                 </ul>
             </div>
         </ul>

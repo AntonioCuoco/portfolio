@@ -13,6 +13,23 @@
     transform: rotate(90deg);
 }
 
+.wrapper-policy {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: fit-content;
+    gap: 24px;
+    height: 100%;
+    padding: 8px;
+    margin-top: 16px;
+}
+
+.wrapper-policy a {
+    color: white;
+    text-decoration: none;
+}
+
 .menù-mobile-icon {display: none;}
 .open-menù-voice {display: none;}
 .open-menù {display: none;}

@@ -37,6 +37,23 @@
     background-color: #5D737E;
 }
 
+.wrapper-policy-web {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: fit-content;
+    gap: 24px;
+    height: 100%;
+    padding: 24px;
+    margin-right: 36px;
+}
+
+.wrapper-policy-web a {
+    color: white;
+    text-decoration: none;
+}
+
 .wrapper-menù {
     display: flex;
     flex-direction: row;
@@ -108,6 +125,10 @@
 
 @media screen and (max-width: 767px) {
 
+    .wrapper-policy-web {
+        display: none;
+    }
+
     .img-personaggio3d {
         position: absolute;
         height: 80%;
@@ -121,7 +142,7 @@
         display: block;
         width: 50%;
         height: 70%;
-        margin-top: 10%;
+        /* margin-top: 10%; */
     }
 
     .wrapper-body1 {

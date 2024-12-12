@@ -1,5 +1,8 @@
-# portfolio
+# React + Vite
 
-### link al sito: www.antoniocuoco.it
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### salve e benvenuti nel progetto del mio portfolio, il sito è stato creato utilizzando html css javascript/React e varie librerie di react come per esempio redux,react router e altre, il sito è stato deployato su netlify che è una piattaforma molto semplice sul quale deployare siti soprattuto se si ha il sito su github o su bitbucket poichè c'è il continous deployment e quindi ogni volta che si andrammmo a fare delle push su github o bitbucket lui farà partire un nuovo deploy. 
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

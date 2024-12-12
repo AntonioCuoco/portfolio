@@ -24,15 +24,15 @@ function MainLayout() { // per la pagina di about, fare un quiz interattivo in c
                 </motion.div>
             </motion.div>
             {widthScreen < 767 &&
-                        <div className='wrapper-text'>
-                            <motion.div className='text-container-mobile'>
-                                <motion.img src={scrittaHome} className='text-1-mobile' />
-                            </motion.div>
-                            <motion.div className='text-container-mobile2'>
-                                <motion.img src={scrittaHome2} className='text-2-mobile' />
-                            </motion.div>
-                        </div>
-                    }
+                <div className='wrapper-text'>
+                    <motion.div className='text-container-mobile'>
+                        <motion.img src={scrittaHome} className='text-1-mobile' />
+                    </motion.div>
+                    <motion.div className='text-container-mobile2'>
+                        <motion.img src={scrittaHome2} className='text-2-mobile' />
+                    </motion.div>
+                </div>
+            }
             <motion.div className='text-container'>
                 <motion.img src={scrittaHome} className='text-1' />
             </motion.div>
@@ -41,7 +41,10 @@ function MainLayout() { // per la pagina di about, fare un quiz interattivo in c
             </motion.div>
             <motion.div className='wrapper-body2'>
                 <Menù />
-                <p style={{ color: 'white', padding: 16 }} className='siteBy'>Antonio Cuoco @ 2024</p>
+                <div className='wrapper-policy-web'>
+                    <a href="https://www.iubenda.com/privacy-policy/2400137" className="privacy-policy">Privacy Policy</a>
+                    <a href="https://www.iubenda.com/privacy-policy/46134369/cookie-policy" className="cookie-policy">Cookie Policy</a>
+                </div>
             </motion.div>
         </div>
     )

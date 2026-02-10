@@ -35,8 +35,8 @@ const Footer = () => {
         {/* Legal / Copyright */}
         <div className="flex flex-col md:items-end gap-2 text-sm text-slate-500 font-mono">
           <div className="flex gap-6 mb-4">
-            <a href="https://www.iubenda.com/privacy-policy/2400137" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="https://www.iubenda.com/privacy-policy/46134369/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/2400137" className="hover:text-indigo-500 transition-colors">Privacy Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/46134369/cookie-policy" className="hover:text-indigo-500 transition-colors">Cookie Policy</a>
           </div>
           <p>© 2024 Antonio Cuoco. All rights reserved.</p>
           <p>Designed & Built with passion.</p>

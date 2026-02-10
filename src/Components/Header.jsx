@@ -1,5 +1,6 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import RamsButton from "./ramsButton";
+import ScrambleLogo from "./ScrambleLogo";
 import { useState } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
@@ -34,17 +35,7 @@ export default function Header() {
 
     return (
         <div className="flex justify-between items-center relative">
-            <div className="flex flex-row gap-2 items-end relative">
-                <Link to="/" className="text-2xl md:text-3xl font-bold hover:text-[#EE7B30] transition-colors duration-300">A</Link>
-                <div
-                    className={`
-                        w-2 h-2
-                        rounded-full 
-                        bg-[#EE7B30]
-                        absolute bottom-1.5 right-[-11px]
-                      `}
-                />
-            </div>
+            <ScrambleLogo />
 
             {/* Desktop Navigation */}
             <ul className="hidden md:flex gap-5 font-bespoke">

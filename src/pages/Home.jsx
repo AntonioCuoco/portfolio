@@ -43,7 +43,7 @@ export default function Home() {
                     </div>
                 </MasonryElement>
 
-                <StatusSquare size="md" />
+                <StatusSquare size="md" draggable={true} />
 
                 {/* How I work - bottom center */}
                 <MasonryElement title="Why me" size="2x2">

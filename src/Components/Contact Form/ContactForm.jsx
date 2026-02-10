@@ -21,14 +21,14 @@ export default function ContactForm() {
     try {
       const formData = new FormData(formRef.current);
 
-      formData.append("access_key", process.env.NEXT_PUBLIC_PUBBLIC_KEY);
+      formData.append("access_key", import.meta.env.VITE_NEXT_PUBLIC_KEY);
 
       const response = await axios.post("https://api.web3forms.com/submit", formData);
 
       if (response.data.success) {
         Swal.fire({
           title: "Form inviato con successo",
-          text: "Ti rispondero' il prima possibile",
+          text: "Ti risponderò il prima possibile",
           icon: "success",
         });
         reset();
@@ -53,9 +53,9 @@ export default function ContactForm() {
           type="text"
           placeholder=" "
           {...register("user_name", { required: true })}
-          className="peer w-full bg-transparent border-b border-black/20 py-3 text-xl text-white outline-none transition-colors focus:border-indigo-500"
+          className="peer w-full bg-transparent border-b border-black/20 py-3 text-xl outline-none transition-colors focus:border-indigo-500"
         />
-        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-400 peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm peer-[:not(:placeholder-shown)]:text-indigo-400">
+        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm">
           Your Name
         </label>
       </div>
@@ -65,9 +65,9 @@ export default function ContactForm() {
           type="email"
           placeholder=" "
           {...register("user_email", { required: true })}
-          className="peer w-full bg-transparent border-b border-black/20 py-3 text-xl text-white outline-none transition-colors focus:border-indigo-500"
+          className="peer w-full bg-transparent border-b border-black/20 py-3 text-xl outline-none transition-colors focus:border-indigo-500"
         />
-        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-400 peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm peer-[:not(:placeholder-shown)]:text-indigo-400">
+        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm">
           Your Email
         </label>
       </div>
@@ -77,9 +77,9 @@ export default function ContactForm() {
           rows={4}
           placeholder=" "
           {...register("message", { required: true })}
-          className="peer w-full bg-transparent border-b border-black/20 py-3 text-xl text-white outline-none transition-colors focus:border-indigo-500 resize-none"
+          className="peer w-full bg-transparent border-b border-black/20 py-3 text-lg outline-none transition-colors focus:border-indigo-500 resize-none"
         />
-        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-400 peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm peer-[:not(:placeholder-shown)]:text-indigo-400">
+        <label className="absolute left-0 top-3 text-slate-500 transition-all peer-focus:-top-6 peer-focus:text-sm peer-[:not(:placeholder-shown)]:-top-6 peer-[:not(:placeholder-shown)]:text-sm">
           Tell me about your project
         </label>
       </div>

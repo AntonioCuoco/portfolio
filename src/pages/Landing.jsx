@@ -10,14 +10,15 @@ export default function Landing() {
     return (
         <div className="min-h-screen min-w-screen flex flex-col md:flex-row justify-between items-end md:justify-between md:items-center md:px-16 bg-[#F5F5F5]">
             <TextScramble className={`text-2xl md:text-3xl ${open && "hidden"} mr-4 w-48 whitespace-nowrap`} text="ANTONIO CUOCO" />
-            <motion.div
+            <motion.video
                 layoutId="card"
-                className="w-[50vw] h-[50vw] md:w-[25vw] md:h-[30vw] bg-black mx-auto flex justify-center items-center cursor-pointer"
+                className="w-[50vw] h-[50vw] md:w-[25vw] md:h-[30vw] relative bg-black mx-auto flex justify-center items-center cursor-pointer object-cover"
                 layout
                 onClick={() => setIsOpen(!open)}
+                src="/videos/red-dancer.mp4"
             >
                 <p className={`text-[#f5f5f5] text-2xl ${open && "hidden"}`}>ENTER</p>
-            </motion.div>
+            </motion.video>
             <h1 className={`text-3xl ${open && "hidden"} mr-4 w-48`}>
                 <TextScramble text="CREATIVE" className="-ml-6"/> 
                 <TextScramble text="FRONTEND" className="" />

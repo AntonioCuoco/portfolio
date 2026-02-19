@@ -14,16 +14,26 @@ export default function Home() {
                     position: "fixed",
                     inset: 0,
                     zIndex: 100,
-                    background: "linear-gradient(150deg, #060606, #050505)",
                     borderRadius: 0
                 }}
+
             >
+                {/* Background */}
+                <motion.video
+                    src="/videos/red-dancer.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    className="absolute top-0 left-0 w-full h-full inset-0 object-fill"
+                />
+                <div className="absolute inset-0 w-full h-full top-0 left-0 bg-black/30" />
+
                 {/* Contenuti che compaiono DOPO */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
-                    style={{color: "white" }}
+                    style={{ color: "white" }}
                 >
                     <Header />
                 </motion.div>

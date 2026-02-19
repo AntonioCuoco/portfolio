@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
+import { Header } from "@/Components/Header/Header";
 
 export default function Home() {
     return (
-        <div className="min-h-screen min-w-screen flex flex-col gap-6 md:gap-10 bg-[#F5F5F5] font-bespoke px-4 md:px-6 py-4">
+        <div className="w-full h-full flex flex-col">
             <motion.div
                 layoutId="card"
                 initial={{ opacity: 0 }}
@@ -22,10 +23,9 @@ export default function Home() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
-                    style={{ padding: 40, color: "white" }}
+                    style={{color: "white" }}
                 >
-                    <h1>Contenuto della pagina</h1>
-                    <p>Testo, CTA, immagini, ecc.</p>
+                    <Header />
                 </motion.div>
             </motion.div>
         </div>

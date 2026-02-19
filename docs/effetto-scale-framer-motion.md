@@ -1,12 +1,28 @@
-# Documentazione: Effetto Scale con Framer Motion
+# Documentazione: Effetti Animati con Framer Motion
 
 ## Panoramica
-Questo documento descrive come abbiamo implementato un effetto di transizione scale utilizzando Framer Motion, dove un elemento si espande da una piccola card a schermo intero quando viene cliccato.
+Questo documento descrive gli effetti animati implementati nel portfolio utilizzando Framer Motion e React.
 
 ## Tecnologie Utilizzate
 - **React** - Framework UI
+- **TypeScript** - Type safety
 - **Framer Motion** - Libreria per animazioni
 - **Tailwind CSS** - Styling
+
+---
+
+# Indice degli Effetti
+
+1. [Effetto Scale (Card Expansion)](#effetto-scale)
+2. [Effetto Text Scramble](#effetto-text-scramble)
+
+---
+
+<a name="effetto-scale"></a>
+# 1. Effetto Scale con Framer Motion
+
+## Descrizione
+Effetto di transizione scale dove un elemento si espande da una piccola card a schermo intero quando viene cliccato.
 
 ## Concetti Chiave
 
@@ -278,4 +294,677 @@ className="w-[25vw] h-[30vw]"
 ---
 
 **Data creazione**: 19 Febbraio 2026  
+**Autore**: Antonio Cuoco
+
+
+---
+
+<a name="effetto-text-scramble"></a>
+# 2. Effetto Text Scramble
+
+## Descrizione
+Effetto di scramble del testo che mostra lettere casuali al passaggio del mouse, creando un effetto "hacker" o "glitch".
+
+## Come Funziona
+
+### Meccanismo
+1. Al passaggio del mouse (`onMouseEnter`), parte un intervallo che sostituisce ogni lettera con una casuale
+2. Le lettere cambiano continuamente finché il mouse rimane sopra l'elemento
+3. Quando il mouse esce (`onMouseLeave`), il testo torna immediatamente all'originale
+
+---
+
+## Implementazione Completa
+
+### TextScramble.tsx
+
+```tsx
+import { useState, useRef, ElementType, HTMLAttributes } from "react";
+
+interface TextScrambleProps extends HTMLAttributes<HTMLElement> {
+  text?: string;
+  className?: string;
+  speed?: number;
+  as?: ElementType;
+}
+
+export default function TextScramble({ 
+  text = "Text", 
+  className = "", 
+  speed = 50,
+  as: Component = "p",
+  ...props
+}: TextScrambleProps) {
+  const [displayText, setDisplayText] = useState<string>(text);
+  const scrambleIntervalRef = useRef<number | null>(null);
+  const originalText = text;
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  const handleHover = () => {
+    scrambleIntervalRef.current = window.setInterval(() => {
+      setDisplayText(
+        originalText
+          .split("")
+          .map((letter) => {
+            if (letter === " ") return " ";
+            
+            // Genera una lettera random
+            const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+            return randomLetter;
+          })
+          .join("")
+      );
+    }, speed);
+  };
+
+  const handleLeave = () => {
+    if (scrambleIntervalRef.current) {
+      clearInterval(scrambleIntervalRef.current);
+      scrambleIntervalRef.current = null;
+    }
+    setDisplayText(originalText);
+  };
+
+  return (
+    <Component
+      className={className}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
+      {...props}
+    >
+      {displayText}
+    </Component>
+  );
+}
+```
+
+---
+
+## Spiegazione del Codice
+
+### 1. Interface TypeScript
+
+```tsx
+interface TextScrambleProps extends HTMLAttributes<HTMLElement> {
+  text?: string;
+  className?: string;
+  speed?: number;
+  as?: ElementType;
+}
+```
+
+- Estende `HTMLAttributes` per supportare tutte le props HTML standard
+- `as?: ElementType` permette di renderizzare qualsiasi elemento HTML
+
+### 2. State Management
+
+```tsx
+const [displayText, setDisplayText] = useState<string>(text);
+const scrambleIntervalRef = useRef<number | null>(null);
+const originalText = text;
+```
+
+- `displayText` - Testo attualmente visualizzato (cambia durante lo scramble)
+- `scrambleIntervalRef` - Riferimento all'intervallo per poterlo cancellare
+- `originalText` - Testo originale da ripristinare
+
+### 3. Logica dello Scramble
+
+```tsx
+const handleHover = () => {
+  scrambleIntervalRef.current = window.setInterval(() => {
+    setDisplayText(
+      originalText
+        .split("")
+        .map((letter) => {
+          if (letter === " ") return " ";
+          const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+          return randomLetter;
+        })
+        .join("")
+    );
+  }, speed);
+};
+```
+
+- `split("")` - Divide il testo in array di caratteri
+- `map()` - Per ogni carattere, genera una lettera casuale
+- Gli spazi vengono preservati
+- `window.setInterval` - Ripete l'operazione ogni `speed` millisecondi
+
+### 4. Cleanup
+
+```tsx
+const handleLeave = () => {
+  if (scrambleIntervalRef.current) {
+    clearInterval(scrambleIntervalRef.current);
+    scrambleIntervalRef.current = null;
+  }
+  setDisplayText(originalText);
+};
+```
+
+- Cancella l'intervallo per evitare memory leak
+- Ripristina il testo originale
+
+### 5. Componente Polimorfico
+
+```tsx
+return (
+  <Component
+    className={className}
+    onMouseEnter={handleHover}
+    onMouseLeave={handleLeave}
+    {...props}
+  >
+    {displayText}
+  </Component>
+);
+```
+
+- `Component` può essere qualsiasi elemento HTML
+- `{...props}` passa tutte le altre props HTML
+
+---
+
+## Esempi di Utilizzo
+
+### Esempio Base
+
+```tsx
+import TextScramble from "@/Components/TextScramble/TextScramble";
+
+function App() {
+  return <TextScramble text="HOVER ME" />;
+}
+```
+
+### Con Elemento Personalizzato
+
+```tsx
+<TextScramble 
+  text="CREATIVE DEVELOPER" 
+  as="h1"
+  className="text-4xl font-bold"
+/>
+```
+
+### Con Velocità Personalizzata
+
+```tsx
+<TextScramble 
+  text="FAST SCRAMBLE" 
+  speed={30}  // Più veloce (default: 50ms)
+/>
+
+<TextScramble 
+  text="SLOW SCRAMBLE" 
+  speed={100}  // Più lento
+/>
+```
+
+### Con Props HTML
+
+```tsx
+<TextScramble 
+  text="CLICK ME" 
+  onClick={() => console.log("Clicked!")}
+  style={{ color: "red" }}
+/>
+```
+
+---
+
+## Parametri Personalizzabili
+
+### text (string)
+- Default: `"Text"`
+- Il testo da visualizzare
+
+### className (string)
+- Default: `""`
+- Classi CSS da applicare
+
+### speed (number)
+- Default: `50`
+- Velocità dello scramble in millisecondi
+- Valori più bassi = più veloce
+
+### as (ElementType)
+- Default: `"p"`
+- Elemento HTML da renderizzare
+- Esempi: `"h1"`, `"span"`, `"div"`, `"button"`
+
+---
+
+## Varianti Possibili
+
+### 1. Scramble con Numeri
+
+```tsx
+const letters = "0123456789";
+```
+
+### 2. Scramble con Simboli
+
+```tsx
+const letters = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+```
+
+### 3. Scramble Misto
+
+```tsx
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+```
+
+### 4. Scramble Progressivo
+
+Invece di cambiare tutte le lettere, potresti rivelare progressivamente:
+
+```tsx
+const handleHover = () => {
+  let iteration = 0;
+  
+  scrambleIntervalRef.current = window.setInterval(() => {
+    setDisplayText(
+      originalText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return originalText[index]; // Lettera corretta
+          }
+          return letters[Math.floor(Math.random() * letters.length)]; // Random
+        })
+        .join("")
+    );
+    
+    iteration += 1 / 3; // Velocità di rivelazione
+    
+    if (iteration >= originalText.length) {
+      clearInterval(scrambleIntervalRef.current!);
+    }
+  }, speed);
+};
+```
+
+---
+
+## Best Practices
+
+1. **Performance**: Usa `useRef` per l'intervallo invece di `useState` per evitare re-render
+2. **Cleanup**: Sempre cancellare gli intervalli in `handleLeave` per evitare memory leak
+3. **TypeScript**: Usa `window.setInterval` invece di `setInterval` per il tipo corretto
+4. **Accessibilità**: Considera di aggiungere `aria-label` con il testo originale
+
+---
+
+## Accessibilità
+
+Per migliorare l'accessibilità:
+
+```tsx
+<Component
+  className={className}
+  onMouseEnter={handleHover}
+  onMouseLeave={handleLeave}
+  aria-label={originalText}
+  {...props}
+>
+  {displayText}
+</Component>
+```
+
+---
+
+## Combinazione con Altri Effetti
+
+### Con Framer Motion
+
+```tsx
+import { motion } from "framer-motion";
+
+<TextScramble 
+  as={motion.h1}
+  text="ANIMATED SCRAMBLE"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+/>
+```
+
+---
+
+**Data aggiornamento**: 19 Febbraio 2026  
+**Autore**: Antonio Cuoco
+
+
+---
+
+# 3. Sezioni con Background Diversi
+
+## Descrizione
+Implementazione di sezioni scrollabili con background diversi, dove la prima sezione ha un video background e le successive hanno background statici.
+
+## Implementazione
+
+### Home.jsx - Multi-Section Layout
+
+```jsx
+import { motion } from "framer-motion";
+import { Header } from "@/Components/Header/Header";
+
+export default function Home() {
+    return (
+        <div className="w-full h-full flex flex-col">
+            <motion.div
+                layoutId="card"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                style={{
+                    position: "fixed",
+                    inset: 0,
+                    zIndex: 100,
+                    borderRadius: 0
+                }}
+            >
+                {/* Contenitore scrollabile */}
+                <div className="w-full h-full overflow-y-auto snap-y snap-mandatory">
+                    
+                    {/* Prima Sezione - Con Video Background */}
+                    <section className="relative w-full h-screen snap-start">
+                        <motion.video
+                            src="/videos/red-dancer.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            className="absolute top-0 left-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 w-full h-full bg-black/25" />
+                        
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.25 }}
+                            className="relative z-10"
+                            style={{ color: "white" }}
+                        >
+                            <Header />
+                        </motion.div>
+                    </section>
+
+                    {/* Seconda Sezione - Background Diverso */}
+                    <section className="relative w-full h-screen snap-start bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+                        <div className="relative z-10 flex items-center justify-center h-full">
+                            <motion.div
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="text-white text-center"
+                            >
+                                <h2 className="text-5xl font-bold mb-4">Seconda Sezione</h2>
+                                <p className="text-xl">Contenuto con background diverso</p>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                </div>
+            </motion.div>
+        </div>
+    );
+}
+```
+
+---
+
+## Spiegazione del Codice
+
+### 1. Contenitore Scrollabile
+
+```jsx
+<div className="w-full h-full overflow-y-auto snap-y snap-mandatory">
+```
+
+- `overflow-y-auto` - Abilita lo scroll verticale
+- `snap-y snap-mandatory` - Snap scrolling verticale (le sezioni si "agganciano")
+
+### 2. Sezioni con Snap
+
+```jsx
+<section className="relative w-full h-screen snap-start">
+```
+
+- `h-screen` - Ogni sezione occupa l'intera altezza del viewport
+- `snap-start` - Il punto di snap è all'inizio della sezione
+- `relative` - Posizionamento relativo per gli elementi assoluti interni
+
+### 3. Prima Sezione - Video Background
+
+```jsx
+<section className="relative w-full h-screen snap-start">
+    <motion.video
+        src="/videos/red-dancer.mp4"
+        autoPlay
+        loop
+        muted
+        className="absolute top-0 left-0 w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 w-full h-full bg-black/25" />
+    
+    <motion.div className="relative z-10">
+        <Header />
+    </motion.div>
+</section>
+```
+
+- Video in `position: absolute` copre tutta la sezione
+- Overlay scuro (`bg-black/25`) per migliorare la leggibilità
+- Contenuto con `z-10` per stare sopra il video
+
+### 4. Seconda Sezione - Background Statico
+
+```jsx
+<section className="relative w-full h-screen snap-start bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="relative z-10 flex items-center justify-center h-full">
+        <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+        >
+            {/* Contenuto */}
+        </motion.div>
+    </div>
+</section>
+```
+
+- Background gradient con Tailwind
+- `whileInView` - Anima quando la sezione entra nel viewport
+- Contenuto centrato con flexbox
+
+---
+
+## Varianti di Background
+
+### Gradient Solido
+
+```jsx
+<section className="bg-gradient-to-r from-blue-500 to-purple-600">
+```
+
+### Immagine di Background
+
+```jsx
+<section className="relative">
+    <img 
+        src="/images/background.jpg" 
+        className="absolute inset-0 w-full h-full object-cover"
+        alt=""
+    />
+    <div className="absolute inset-0 bg-black/40" />
+    <div className="relative z-10">
+        {/* Contenuto */}
+    </div>
+</section>
+```
+
+### Pattern con CSS
+
+```jsx
+<section 
+    className="bg-slate-900"
+    style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+        backgroundSize: '40px 40px'
+    }}
+>
+```
+
+### Video Diverso per Sezione
+
+```jsx
+<section className="relative">
+    <video
+        src="/videos/section-2.mp4"
+        autoPlay
+        loop
+        muted
+        className="absolute inset-0 w-full h-full object-cover"
+    />
+</section>
+```
+
+---
+
+## Animazioni Scroll-Based
+
+### Fade In al Scroll
+
+```jsx
+<motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    viewport={{ once: true, amount: 0.3 }}
+>
+    {/* Contenuto */}
+</motion.div>
+```
+
+### Scale al Scroll
+
+```jsx
+<motion.div
+    initial={{ scale: 0.8, opacity: 0 }}
+    whileInView={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.6 }}
+>
+    {/* Contenuto */}
+</motion.div>
+```
+
+### Slide da Sinistra
+
+```jsx
+<motion.div
+    initial={{ x: -100, opacity: 0 }}
+    whileInView={{ x: 0, opacity: 1 }}
+    transition={{ duration: 0.6 }}
+>
+    {/* Contenuto */}
+</motion.div>
+```
+
+---
+
+## Snap Scrolling Options
+
+### Snap Proximity (più morbido)
+
+```jsx
+<div className="overflow-y-auto snap-y snap-proximity">
+```
+
+### Snap Center (centra la sezione)
+
+```jsx
+<section className="snap-center">
+```
+
+### Disabilitare Snap su Mobile
+
+```jsx
+<div className="overflow-y-auto md:snap-y md:snap-mandatory">
+```
+
+---
+
+## Performance Tips
+
+1. **Lazy Load Video**: Carica il video solo quando necessario
+2. **Poster Image**: Usa un'immagine placeholder per il video
+3. **Preload**: Precarica le risorse critiche
+4. **Optimize Video**: Comprimi il video per ridurre il peso
+
+```jsx
+<video
+    src="/videos/red-dancer.mp4"
+    poster="/images/video-poster.jpg"
+    preload="metadata"
+    autoPlay
+    loop
+    muted
+    playsInline
+/>
+```
+
+---
+
+## Esempio Completo con 3+ Sezioni
+
+```jsx
+<div className="w-full h-full overflow-y-auto snap-y snap-mandatory">
+    
+    {/* Hero con Video */}
+    <section className="relative h-screen snap-start">
+        <video src="/videos/hero.mp4" autoPlay loop muted className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative z-10">
+            <Header />
+        </div>
+    </section>
+
+    {/* About */}
+    <section className="h-screen snap-start bg-gradient-to-br from-indigo-900 to-purple-900">
+        <div className="flex items-center justify-center h-full">
+            <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }}>
+                <h2>About Me</h2>
+            </motion.div>
+        </div>
+    </section>
+
+    {/* Projects */}
+    <section className="h-screen snap-start bg-slate-900">
+        <div className="flex items-center justify-center h-full">
+            <motion.div whileInView={{ opacity: 1, scale: 1 }} initial={{ opacity: 0, scale: 0.9 }}>
+                <h2>Projects</h2>
+            </motion.div>
+        </div>
+    </section>
+
+    {/* Contact */}
+    <section className="h-screen snap-start bg-gradient-to-t from-black to-slate-900">
+        <div className="flex items-center justify-center h-full">
+            <motion.div whileInView={{ opacity: 1, x: 0 }} initial={{ opacity: 0, x: -50 }}>
+                <h2>Contact</h2>
+            </motion.div>
+        </div>
+    </section>
+
+</div>
+```
+
+---
+
+**Data aggiornamento**: 19 Febbraio 2026  
 **Autore**: Antonio Cuoco

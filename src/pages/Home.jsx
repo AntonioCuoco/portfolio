@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Header } from "@/Components/Header/Header";
 import { useState, useRef, useEffect } from "react";
+import SpotlightImage from "@/Components/SpotlightImage/SpotlightImage";
 
 export default function Home() {
     const [activeSection, setActiveSection] = useState(0);
@@ -72,6 +73,16 @@ export default function Home() {
                             >
                                 <h1 className="text-2xl">About Me</h1>
                                 <p className="text-6xl">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
+                                
+                                {/* Immagine con firma - visibile solo nel cursor */}
+                                <div className="flex justify-center mt-12">
+                                    <SpotlightImage 
+                                        src="/img/imgSigned.png"
+                                        alt="Signature"
+                                        width={600}
+                                        height={600}
+                                    />
+                                </div>
                             </motion.div>
                         </div>
                     </section>

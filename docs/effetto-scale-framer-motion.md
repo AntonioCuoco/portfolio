@@ -968,3 +968,435 @@ export default function Home() {
 
 **Data aggiornamento**: 19 Febbraio 2026  
 **Autore**: Antonio Cuoco
+
+
+---
+
+# 4. Custom Cursor
+
+## Descrizione
+Cursore personalizzato che segue il movimento del mouse con un effetto fluido e si ingrandisce quando passa sopra elementi cliccabili.
+
+## Struttura dei File
+
+```
+src/
+├── layouts/
+│   └── Layout.tsx              # Layout wrapper per tutte le pagine
+├── Components/
+│   └── CustomCursor/
+│       └── CustomCursor.tsx    # Componente custom cursor
+└── App.jsx                     # Wrappa le route con Layout
+```
+
+---
+
+## Implementazione
+
+### CustomCursor.tsx
+
+```tsx
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
+export default function CustomCursor() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.style.cursor === "pointer"
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseover", handleMouseOver);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+    };
+  }, []);
+
+  return (
+    <>
+      {/* Cursore principale */}
+      <motion.div
+        className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 8,
+          y: mousePosition.y - 8,
+          scale: isHovering ? 1.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 500,
+          damping: 28,
+          mass: 0.5,
+        }}
+      />
+
+      {/* Cursore secondario (alone) */}
+      <motion.div
+        className="fixed top-0 left-0 w-8 h-8 border-2 border-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
+          scale: isHovering ? 1.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 150,
+          damping: 15,
+          mass: 0.5,
+        }}
+      />
+    </>
+  );
+}
+```
+
+### Layout.tsx
+
+```tsx
+import { ReactNode } from "react";
+import CustomCursor from "@/Components/CustomCursor/CustomCursor";
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
+  return (
+    <div className="relative w-full h-full cursor-none">
+      <CustomCursor />
+      {children}
+    </div>
+  );
+}
+```
+
+### App.jsx
+
+```jsx
+import { Routes, Route } from "react-router-dom";
+import Home from "@/pages/Home";
+import Landing from "@/pages/Landing";
+import Layout from "@/layouts/Layout";
+
+function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Layout>
+  );
+}
+
+export default App;
+```
+
+---
+
+## Spiegazione del Codice
+
+### 1. Tracking del Mouse
+
+```tsx
+const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+useEffect(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+  return () => window.removeEventListener("mousemove", handleMouseMove);
+}, []);
+```
+
+- Traccia la posizione del mouse in tempo reale
+- Aggiorna lo state ad ogni movimento
+
+### 2. Rilevamento Hover
+
+```tsx
+const [isHovering, setIsHovering] = useState(false);
+
+const handleMouseOver = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  if (
+    target.tagName === "A" ||
+    target.tagName === "BUTTON" ||
+    target.closest("a") ||
+    target.closest("button") ||
+    target.style.cursor === "pointer"
+  ) {
+    setIsHovering(true);
+  } else {
+    setIsHovering(false);
+  }
+};
+```
+
+- Rileva quando il mouse è sopra elementi cliccabili
+- Controlla tag HTML e attributi CSS
+
+### 3. Cursore Principale
+
+```tsx
+<motion.div
+  className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+  animate={{
+    x: mousePosition.x - 8,
+    y: mousePosition.y - 8,
+    scale: isHovering ? 1.5 : 1,
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 500,
+    damping: 28,
+    mass: 0.5,
+  }}
+/>
+```
+
+- `pointer-events-none` - Non interferisce con i click
+- `z-[9999]` - Sempre sopra gli altri elementi
+- `mix-blend-difference` - Effetto di inversione colore
+- Animazione spring per movimento fluido
+- Scale 1.5x quando hover su elementi cliccabili
+
+### 4. Cursore Secondario (Alone)
+
+```tsx
+<motion.div
+  className="fixed top-0 left-0 w-8 h-8 border-2 border-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+  animate={{
+    x: mousePosition.x - 16,
+    y: mousePosition.y - 16,
+    scale: isHovering ? 1.5 : 1,
+  }}
+  transition={{
+    type: "spring",
+    stiffness: 150,
+    damping: 15,
+    mass: 0.5,
+  }}
+/>
+```
+
+- Segue il cursore principale con un leggero ritardo
+- Transizione più lenta (`stiffness: 150` vs `500`)
+- Crea un effetto "alone" attorno al cursore
+
+### 5. Layout Wrapper
+
+```tsx
+<div className="relative w-full h-full cursor-none">
+  <CustomCursor />
+  {children}
+</div>
+```
+
+- `cursor-none` - Nasconde il cursore di default del browser
+- Rende il custom cursor disponibile in tutte le pagine
+
+---
+
+## Personalizzazioni
+
+### Cambiare Colore
+
+```tsx
+// Cursore nero
+className="bg-black"
+
+// Cursore colorato
+className="bg-blue-500"
+
+// Senza blend mode
+className="bg-white" // Rimuovi mix-blend-difference
+```
+
+### Cambiare Dimensioni
+
+```tsx
+// Cursore più grande
+<motion.div className="w-6 h-6" /> // Principale
+<motion.div className="w-12 h-12" /> // Alone
+
+// Cursore più piccolo
+<motion.div className="w-2 h-2" /> // Principale
+<motion.div className="w-6 h-6" /> // Alone
+```
+
+### Cambiare Velocità
+
+```tsx
+// Più veloce
+transition={{
+  type: "spring",
+  stiffness: 800,  // Aumenta
+  damping: 40,
+}}
+
+// Più lento
+transition={{
+  type: "spring",
+  stiffness: 200,  // Diminuisci
+  damping: 20,
+}}
+```
+
+### Effetto Hover Diverso
+
+```tsx
+// Rotazione
+animate={{
+  x: mousePosition.x - 8,
+  y: mousePosition.y - 8,
+  scale: isHovering ? 1.5 : 1,
+  rotate: isHovering ? 45 : 0,
+}}
+
+// Cambio forma
+animate={{
+  x: mousePosition.x - 8,
+  y: mousePosition.y - 8,
+  scale: isHovering ? 1.5 : 1,
+  borderRadius: isHovering ? "0%" : "50%",
+}}
+```
+
+---
+
+## Varianti di Cursore
+
+### 1. Cursore Singolo
+
+```tsx
+export default function CustomCursor() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-6 h-6 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+      animate={{
+        x: mousePosition.x - 12,
+        y: mousePosition.y - 12,
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 28 }}
+    />
+  );
+}
+```
+
+### 2. Cursore con Testo
+
+```tsx
+<motion.div
+  className="fixed top-0 left-0 pointer-events-none z-[9999]"
+  animate={{
+    x: mousePosition.x + 20,
+    y: mousePosition.y + 20,
+  }}
+>
+  {isHovering && (
+    <span className="text-white text-sm">Click</span>
+  )}
+</motion.div>
+```
+
+### 3. Cursore con Trail
+
+```tsx
+const [trail, setTrail] = useState<Array<{x: number, y: number}>>([]);
+
+useEffect(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    setTrail(prev => [...prev.slice(-10), { x: e.clientX, y: e.clientY }]);
+  };
+  window.addEventListener("mousemove", handleMouseMove);
+  return () => window.removeEventListener("mousemove", handleMouseMove);
+}, []);
+
+return (
+  <>
+    {trail.map((pos, i) => (
+      <motion.div
+        key={i}
+        className="fixed w-2 h-2 bg-white rounded-full pointer-events-none"
+        style={{
+          x: pos.x,
+          y: pos.y,
+          opacity: i / trail.length,
+        }}
+      />
+    ))}
+  </>
+);
+```
+
+---
+
+## Best Practices
+
+1. **Performance**: Usa `pointer-events-none` per evitare interferenze
+2. **Z-Index**: Usa un valore alto (`z-[9999]`) per stare sempre sopra
+3. **Cleanup**: Rimuovi sempre gli event listener in `useEffect`
+4. **Mobile**: Considera di disabilitare su mobile (touch devices)
+
+### Disabilitare su Mobile
+
+```tsx
+export default function CustomCursor() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile('ontouchstart' in window);
+  }, []);
+
+  if (isMobile) return null;
+
+  // ... resto del codice
+}
+```
+
+---
+
+## Accessibilità
+
+Il custom cursor non influisce sull'accessibilità perché:
+- Non interferisce con i click (`pointer-events-none`)
+- Non nasconde elementi interattivi
+- Funziona con tastiera e screen reader
+
+---
+
+**Data aggiornamento**: 19 Febbraio 2026  
+**Autore**: Antonio Cuoco

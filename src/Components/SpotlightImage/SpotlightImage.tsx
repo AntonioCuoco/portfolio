@@ -14,8 +14,18 @@ export default function SpotlightImage({
     height = 500
 }: SpotlightImageProps) {
     const [isHovering, setIsHovering] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const [localMousePos, setLocalMousePos] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        // Rileva se siamo su mobile/touch device
+        const checkMobile = () => {
+            setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        };
+        
+        checkMobile();
+    }, []);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -44,6 +54,22 @@ export default function SpotlightImage({
         return () => document.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    // Su mobile mostra sempre l'immagine
+    if (isMobile) {
+        return (
+            <div 
+                className="relative"
+                style={{ width: `${width}px`, height: `${height}px` }}
+            >
+                <img 
+                    src={src} 
+                    alt={alt}
+                    className="w-full h-full object-contain"
+                />
+            </div>
+        );
+    }
+
     return (
         <div 
             ref={containerRef}
@@ -57,12 +83,12 @@ export default function SpotlightImage({
                 style={{
                     opacity: isHovering ? 1 : 0,
                     maskImage: isHovering 
-                        ? `radial-gradient(circle 80px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)`
+                        ? `radial-gradient(circle 150px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)`
                         : 'radial-gradient(circle 0px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)',
                     WebkitMaskImage: isHovering 
-                        ? `radial-gradient(circle 80px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)`
+                        ? `radial-gradient(circle 150px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)`
                         : 'radial-gradient(circle 0px at ${localMousePos.x}px ${localMousePos.y}px, black 100%, transparent 100%)',
-                    transition: 'none'
+                    transition: 'none',
                 }}
             >
                 <img 

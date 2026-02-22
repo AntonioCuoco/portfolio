@@ -24,6 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   cursor: none;
+  overflow-x: hidden;
 }
 
 /* Page transition animations */

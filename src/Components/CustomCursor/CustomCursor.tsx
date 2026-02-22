@@ -7,6 +7,20 @@ import { useState, useEffect } from "react";
 const CustomCursor = () => {
     const { x, y } = useMousePosition();
     const [isOverSpotlight, setIsOverSpotlight] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    // Dimensioni del cursor
+    const smallSize = 24;
+    const largeSize = 150;
+
+    useEffect(() => {
+        // Rileva se siamo su mobile/touch device
+        const checkMobile = () => {
+            setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        };
+        
+        checkMobile();
+    }, []);
 
     useEffect(() => {
         const handleMouseOver = (e: MouseEvent) => {
@@ -24,23 +38,28 @@ const CustomCursor = () => {
         };
     }, []);
 
+    // Nascondi il cursor su mobile
+    if (isMobile) return null;
+
+    const currentSize = isOverSpotlight ? largeSize : smallSize;
+    const offset = currentSize / 2;
+
     return (
         <motion.div
             className="fixed top-0 left-0 z-[9999] pointer-events-none rounded-full"
-            style={{
-                backgroundColor: isOverSpotlight ? 'transparent' : '#f97316',
-            }}
             animate={{
-                x: x - (isOverSpotlight ? 80 : 8),
-                y: y - (isOverSpotlight ? 80 : 8),
-                width: isOverSpotlight ? 160 : 16,
-                height: isOverSpotlight ? 160 : 16,
+                x: x - offset,
+                y: y - offset,
+                width: currentSize,
+                height: currentSize,
+                backgroundColor: isOverSpotlight ? 'rgba(249, 115, 22, 0)' : 'rgba(249, 115, 22, 1)',
             }}
             transition={{
                 x: { type: "spring", stiffness: 500, damping: 30 },
                 y: { type: "spring", stiffness: 500, damping: 30 },
-                width: { type: "spring", stiffness: 300, damping: 25 },
-                height: { type: "spring", stiffness: 300, damping: 25 },
+                width: { type: "spring", stiffness: 500, damping: 25 },
+                height: { type: "spring", stiffness: 500, damping: 25 },
+                backgroundColor: { duration: 0.3, ease: "easeInOut" },
             }}
         />
     );
